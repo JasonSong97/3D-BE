@@ -31,6 +31,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -145,6 +146,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.data.userId").value(1L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("로그인 실패 : 존재하지 않는 이메일")
@@ -170,6 +172,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("badRequest"))
                 .andExpect(jsonPath("$.data.key").value("email"))
                 .andExpect(jsonPath("$.data.value").value("존재하지 않는 유저입니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("로그인 실패 : 비밀번호 입력 오류")
@@ -194,6 +197,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(401))
                 .andExpect(jsonPath("$.msg").value("unAuthorized"))
                 .andExpect(jsonPath("$.data").value("아이디 혹은 비밀번호를 확인해주세요. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("비밀번호 변경 인증코드 전송 성공")
@@ -218,6 +222,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.data.userId").value(9L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("비밀번호 변경 인증코드 전송 실패 : 사용자 이름 불일치")
@@ -243,6 +248,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("badRequest"))
                 .andExpect(jsonPath("$.data.key").value("name"))
                 .andExpect(jsonPath("$.data.value").value("잘못된 요청입니다. "));
+        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("비밀번호 변경 인증코드 전송 실패 : 없는 이메일")
@@ -268,6 +274,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("badRequest"))
                 .andExpect(jsonPath("$.data.key").value("email"))
                 .andExpect(jsonPath("$.data.value").value("존재하지 않는 유저입니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("비밀번호 변경 인증코드 확인 성공")
@@ -291,6 +298,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.data").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("비밀번호 변경 인증코드 확인 실패 : 없는 이메일")
@@ -315,6 +323,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("badRequest"))
                 .andExpect(jsonPath("$.data.key").value("email"))
                 .andExpect(jsonPath("$.data.value").value("존재하지 않는 유저입니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("비밀번호 변경 인증코드 확인 실패 : 인증코드 불일치")
@@ -339,6 +348,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("badRequest"))
                 .andExpect(jsonPath("$.data.key").value("code"))
                 .andExpect(jsonPath("$.data.value").value("잘못된 인증코드 입니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("비밀번호 변경 인증코드 확인 실패 : 인증코드 만료")
@@ -363,6 +373,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("badRequest"))
                 .andExpect(jsonPath("$.data.key").value("code"))
                 .andExpect(jsonPath("$.data.value").value("유효하지 않은 인증코드 입니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("비밀번호 변경 성공")
@@ -386,6 +397,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.data").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("비밀번호 변경 실패 : 인증코드 입력 안함")
@@ -410,6 +422,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("badRequest"))
                 .andExpect(jsonPath("$.data.key").value("code"))
                 .andExpect(jsonPath("$.data.value").value("인증코드를 입력해주세요. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("비밀번호 변경 실패 : 인증코드 불일치")
@@ -434,6 +447,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("badRequest"))
                 .andExpect(jsonPath("$.data.key").value("code"))
                 .andExpect(jsonPath("$.data.value").value("잘못된 인증코드 입니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     /**
@@ -461,6 +475,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.data").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("이메일 중복 체크 : 중복")
@@ -481,6 +496,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("badRequest"))
                 .andExpect(jsonPath("$.data.key").value("email"))
                 .andExpect(jsonPath("$.data.value").value("이미 존재하는 이메일입니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("회원가입 인증코드 전송 성공")
@@ -505,6 +521,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.data.userId").value(13L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
@@ -529,6 +546,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.data").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("회원가입 인증코드 확인 실패 : 없는 이메일")
@@ -552,6 +570,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.data").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("회원가입 인증코드 확인 실패 : 인증번호 불일치")
@@ -576,6 +595,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("badRequest"))
                 .andExpect(jsonPath("$.data.key").value("code"))
                 .andExpect(jsonPath("$.data.value").value("잘못된 인증코드 입니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("회원가입 인증코드 확인 실패 : 인증번호 만료")
@@ -599,6 +619,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.data").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("회원가입 성공")
@@ -624,6 +645,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.data").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("회원가입 실패 : 이메일 인증 미완료")
@@ -650,6 +672,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("badRequest"))
                 .andExpect(jsonPath("$.data.key").value("email"))
                 .andExpect(jsonPath("$.data.value").value("존재하지 않는 유저입니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("회원가입 실패 : 이름 불일치")
@@ -676,6 +699,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("badRequest"))
                 .andExpect(jsonPath("$.data.key").value("name"))
                 .andExpect(jsonPath("$.data.value").value("잘못된 요청입니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     /**
@@ -702,7 +726,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.data").isEmpty());
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("비밀번호 확인 실패 : 비밀번호 불일치")
@@ -727,7 +751,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("badRequest"))
                 .andExpect(jsonPath("$.data.key").value("password"))
                 .andExpect(jsonPath("$.data.value").value("비밀번호가 일치하지 않습니다. "));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("회원탈퇴 성공")
@@ -750,7 +774,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.data").isEmpty());
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("회원탈퇴 실패 : 권한 체크 실패")
@@ -773,7 +797,7 @@ public class UserControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("회원정보 수정 성공")
@@ -796,7 +820,7 @@ public class UserControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.msg").value("성공"));
         resultActions.andExpect(jsonPath("$.data").isEmpty());
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("회원정보 수정 실패 : 권한 체크 실패")
@@ -818,7 +842,7 @@ public class UserControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(403));
         resultActions.andExpect(jsonPath("$.msg").value("forbidden"));
         resultActions.andExpect(jsonPath("$.data").value("권한이 없습니다. "));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("내 회원정보 조회 성공")
@@ -838,7 +862,7 @@ public class UserControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.data.firstName").value("jaegeun2"));
         resultActions.andExpect(jsonPath("$.data.lastName").value("song"));
         resultActions.andExpect(jsonPath("$.data.email").value("songjaegeun2@nate.com"));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("내 회원정보 조회 실패 : 인증 실패")
@@ -854,7 +878,7 @@ public class UserControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(401));
         resultActions.andExpect(jsonPath("$.msg").value("unAuthorized"));
         resultActions.andExpect(jsonPath("$.data").value("인증되지 않았습니다. "));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     /**
@@ -877,7 +901,7 @@ public class UserControllerTest extends MyRestDoc {
         // then
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.msg").value("성공"));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("내 에셋 조회 실패 : 권한 체크 실패")
@@ -898,7 +922,7 @@ public class UserControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(403));
         resultActions.andExpect(jsonPath("$.msg").value("forbidden"));
         resultActions.andExpect(jsonPath("$.data").value("권한이 없습니다. "));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("내 에셋 검색 성공")
@@ -919,7 +943,7 @@ public class UserControllerTest extends MyRestDoc {
         // then
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.msg").value("성공"));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("내 에셋 검색 실패 : 권한 체크 실패") // id 다른 경우
@@ -942,7 +966,7 @@ public class UserControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(403));
         resultActions.andExpect(jsonPath("$.msg").value("forbidden"));
         resultActions.andExpect(jsonPath("$.data").value("권한이 없습니다. "));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("내 에셋 다운 성공")
@@ -972,7 +996,7 @@ public class UserControllerTest extends MyRestDoc {
         // then
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.msg").value("성공"));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("내 에셋 다운 실패 : 권한 체크 실패")
@@ -1003,7 +1027,7 @@ public class UserControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(403));
         resultActions.andExpect(jsonPath("$.msg").value("forbidden"));
         resultActions.andExpect(jsonPath("$.data").value("권한이 없습니다. "));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("내 에셋 다운 실패 : 해당 에셋 보유 안함")
@@ -1035,6 +1059,6 @@ public class UserControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.msg").value("badRequest"));
         resultActions.andExpect(jsonPath("$.data.key").value("No match"));
         resultActions.andExpect(jsonPath("$.data.value").value("잘못된 요청입니다. "));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

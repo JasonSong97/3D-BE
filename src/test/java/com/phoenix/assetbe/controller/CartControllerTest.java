@@ -24,6 +24,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -98,6 +99,7 @@ public class CartControllerTest extends MyRestDoc {
 
         List<Cart> cartItems = cartRepository.findAllByUser(1L);
         assertEquals(10, cartItems.size());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -126,6 +128,7 @@ public class CartControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -155,6 +158,7 @@ public class CartControllerTest extends MyRestDoc {
 
         List<Cart> cartItems = cartRepository.findAllByUser(userId);
         assertEquals(7, cartItems.size());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -182,6 +186,7 @@ public class CartControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -201,6 +206,7 @@ public class CartControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.cartCount").value(8));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -220,6 +226,7 @@ public class CartControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -238,6 +245,7 @@ public class CartControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -257,6 +265,7 @@ public class CartControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -276,5 +285,6 @@ public class CartControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

@@ -20,6 +20,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
@@ -82,6 +83,7 @@ public class AssetControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.assetId").value(3L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("에셋 상세정보: 로그인유저 - 성공")
@@ -108,6 +110,7 @@ public class AssetControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.assetId").value(10L))
                 .andExpect(jsonPath("$.data.wishlistId").value(1L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("개별 에셋: 비로그인유저 - 성공")
@@ -129,6 +132,7 @@ public class AssetControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.totalElement").value(30L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("개별 에셋: 로그인유저 - 성공")
@@ -151,6 +155,7 @@ public class AssetControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.totalElement").value(30L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("카테고리별 에셋 조회: 비로그인유저 - 성공")
@@ -175,6 +180,7 @@ public class AssetControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.totalElement").value(6L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("카테고리별 에셋 조회: 로그인유저 - 성공")
@@ -200,6 +206,7 @@ public class AssetControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.totalElement").value(6L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("카테고리별 에셋 검색: 비로그인유저 - 성공")
@@ -225,6 +232,7 @@ public class AssetControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.assetList.size()").value(3L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("카테고리별 에셋 검색: 로그인유저 - 성공")
@@ -251,6 +259,7 @@ public class AssetControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.assetList.size()").value(3L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("하위 카테고리별 에셋 조회: 비로그인유저 성공")
@@ -276,6 +285,7 @@ public class AssetControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.totalElement").value(1L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("하위 카테고리별 에셋 조회: 로그인유저 - 성공")
@@ -302,6 +312,7 @@ public class AssetControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.totalElement").value(1L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("에셋 검색: 비로그인유저 - 성공")
@@ -325,6 +336,7 @@ public class AssetControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.totalElement").value(18L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("에셋 검색: 로그인유저 - 성공")
@@ -349,6 +361,7 @@ public class AssetControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.totalElement").value(10L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("카테고리별 에셋 조회: 태그, 비로그인유저 - 성공")
@@ -374,6 +387,7 @@ public class AssetControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.assetList.size()").value(6L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("카테고리별 에셋 조회: 태그, 로그인유저 - 성공")
@@ -400,5 +414,6 @@ public class AssetControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.assetList.size()").value(6L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

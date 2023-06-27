@@ -27,6 +27,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -101,7 +102,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 카테고리 조회 실패 : 권한 체크 실패")
@@ -117,7 +118,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     /**
@@ -137,7 +138,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 서브 카테고리 조회 실패 : 권한 체크 실패")
@@ -154,7 +155,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     /**
@@ -182,7 +183,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
             .andExpect(jsonPath("$.status").value(200))
             .andExpect(jsonPath("$.msg").value("성공"));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 에셋 비활성화 실패 : 권한 체크 실패")
@@ -207,7 +208,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 에셋 활성화 성공")
@@ -230,7 +231,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 에셋 활성화 실패 : 권한 체크 실패")
@@ -255,7 +256,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 에셋 조회: 카테고리 - 성공")
@@ -279,6 +280,7 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.assetList.size()").value(6L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 에셋 조회: 카테고리&서브카테고리 - 성공")
@@ -303,6 +305,7 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.assetList.size()").value(1L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 에셋 조회: 상품명 - 성공")
@@ -326,6 +329,7 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.assetList.size()").value(1L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 에셋 조회: status=false - 성공")
@@ -349,6 +353,7 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.assetList.size()").value(0L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 주문내역 조회: 기간 & 주문일 최신순 - 성공")
@@ -397,6 +402,7 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.orderList.size()").value(4L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 주문내역 조회: 기간 & 주문일 오래된순 - 성공")
@@ -447,6 +453,7 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.orderList.size()").value(4L))
                 .andExpect(jsonPath("$.data.orderList[0].assetName").value("aaaaa 외 8건"));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 주문내역 조회: 기간 & 주문번호 - 성공")
@@ -496,6 +503,7 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.orderList.size()").value(1L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 주문내역 조회: 기간 & 상품번호 - 성공")
@@ -545,6 +553,7 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.orderList.size()").value(1L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -595,6 +604,7 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.orderList.size()").value(1L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 주문내역 조회: 기간 & 이메일 - 성공")
@@ -644,6 +654,7 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.orderList.size()").value(1L));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 에셋 수정 성공")
@@ -698,7 +709,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 에셋 수정 실패 : 권한 체크 실패")
@@ -749,7 +760,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 에셋 등록 성공")
@@ -808,6 +819,7 @@ public class AdminControllerTest extends MyRestDoc {
         assertEquals("robot", subCategory.get().getSubCategoryName());
         assertEquals(15, tagList.size());
         assertEquals("한글", tagList.get(10).getTagName());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("관리자 에셋 등록 실패 : 권한 체크 실패")
@@ -858,6 +870,6 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
-        //resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

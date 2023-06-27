@@ -24,6 +24,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -107,6 +108,7 @@ public class WishControllerTest extends MyRestDoc {
 
         List<WishList> wishItems = wishListRepository.findAllByUser(userId);
         assertEquals(10, wishItems.size());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -134,6 +136,7 @@ public class WishControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -163,6 +166,7 @@ public class WishControllerTest extends MyRestDoc {
 
         List<WishList> wishItems = wishListRepository.findAllByUser(userId);
         assertEquals(7, wishItems.size());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -190,6 +194,7 @@ public class WishControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -208,6 +213,7 @@ public class WishControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -227,6 +233,7 @@ public class WishControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -246,5 +253,6 @@ public class WishControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

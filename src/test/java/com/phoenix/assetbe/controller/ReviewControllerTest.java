@@ -24,6 +24,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -111,6 +112,7 @@ public class ReviewControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.data.hasAsset").value(false))
                 .andExpect(jsonPath("$.data.hasReview").value(false))
                 .andExpect(jsonPath("$.data.hasWishlist").value(false));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("리뷰보기 로그인유저 성공")
@@ -131,6 +133,7 @@ public class ReviewControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.hasReview").value(true));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("리뷰작성 성공")
@@ -168,7 +171,7 @@ public class ReviewControllerTest extends MyRestDoc {
         assertEquals(2L, assetPS.getReviewCount()); // 작성 후 ReviewCount는 증가한다.
         System.out.println("ReviewCount: "+assetPS.getReviewCount());
         System.out.println("AssetRating: "+assetPS.getRating());
-
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("리뷰작성 실패 : 에셋 구매 안함")
@@ -194,6 +197,7 @@ public class ReviewControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value("403"))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("이 에셋을 구매하지 않았습니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("리뷰작성 실패 : 이전에 리뷰 작성함")
@@ -219,6 +223,7 @@ public class ReviewControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value("403"))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("이미 이 에셋의 리뷰를 작성하셨습니다. "));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("리뷰수정 성공")
@@ -255,7 +260,7 @@ public class ReviewControllerTest extends MyRestDoc {
         assertEquals(1L, assetPS.getReviewCount()); // 수정 후 ReviewCount는 변하지 않아야 한다.
         System.out.println("ReviewCount: "+assetPS.getReviewCount());
         System.out.println("Asset Rating: "+assetPS.getRating());
-
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("리뷰삭제 성공")
@@ -289,5 +294,6 @@ public class ReviewControllerTest extends MyRestDoc {
         assertEquals(0D, assetPS.getRating());
         System.out.println("ReviewCount: "+assetPS.getReviewCount());
         System.out.println("Asset Rating: "+assetPS.getRating());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

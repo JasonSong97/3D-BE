@@ -18,6 +18,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -68,5 +69,6 @@ public class CategoryControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.categoryList[0].categoryName").value("cute"))
                 .andExpect(jsonPath("$.data.categoryList[0].categoryCount").value(6));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }
