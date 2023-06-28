@@ -1,92 +1,1286 @@
-// ifndef::snippets[]
-// :snippets: ./build/generated-snippets
-// endif::[]
-//
-// :user: user-controller-test
-//
-// = REST API
-// :toc: left
-// :toclevels: 2
-// :source-highlighter: highlightjs
-//
-//
-// == 회원
-// === 회원가입 (성공)
-// ===== Request Example
-// include::{snippets}/{user}/join_test/http-request.adoc[]
-//
-// ===== Response Example
-// include::{snippets}/{user}/join_test/http-response.adoc[]
-//
-// ===== Curl
-// include::{snippets}/{user}/join_test/curl-request.adoc[]
-//
-// === 회원가입 (유저네임 중복 실패)
-// ===== Request Example
-// include::{snippets}/{user}/join_fail_bad_request_test/http-request.adoc[]
-//
-// ===== Response Example
-// include::{snippets}/{user}/join_fail_bad_request_test/http-response.adoc[]
-//
-// ===== Curl
-// include::{snippets}/{user}/join_fail_bad_request_test/curl-request.adoc[]
-//
-// === 회원가입 (유효성 검사 실패)
-// ===== Request Example
-// include::{snippets}/{user}/join_fail_valid_test/http-request.adoc[]
-//
-// ===== Response Example
-// include::{snippets}/{user}/join_fail_valid_test/http-response.adoc[]
-//
-// ===== Curl
-// include::{snippets}/{user}/join_fail_valid_test/curl-request.adoc[]
-//
-// === 로그인 (성공)
-// ===== Request Example
-// include::{snippets}/{user}/login_test/http-request.adoc[]
-//
-// ===== Response Example
-// include::{snippets}/{user}/login_test/http-response.adoc[]
-//
-// ===== Curl
-// include::{snippets}/{user}/login_test/curl-request.adoc[]
-//
-// === 로그인 (인증 실패)
-// ===== Request Example
-// include::{snippets}/{user}/login_fail_un_authorized_test/http-request.adoc[]
-//
-// ===== Response Example
-// include::{snippets}/{user}/login_fail_un_authorized_test/http-response.adoc[]
-//
-// ===== Curl
-// include::{snippets}/{user}/login_fail_un_authorized_test/curl-request.adoc[]
-//
-// === 회원상세보기 (성공)
-// ===== Request Example
-// include::{snippets}/{user}/detail_test/http-request.adoc[]
-//
-// ===== Response Example
-// include::{snippets}/{user}/detail_test/http-response.adoc[]
-//
-// ===== Curl
-// include::{snippets}/{user}/detail_test/curl-request.adoc[]
-//
-// === 회원상세보기 (인증 안됨 실패)
-// ===== Request Example
-// include::{snippets}/{user}/detail_fail_un_authorized__test/http-request.adoc[]
-//
-// ===== Response Example
-// include::{snippets}/{user}/detail_fail_un_authorized__test/http-response.adoc[]
-//
-// ===== Curl
-// include::{snippets}/{user}/detail_fail_un_authorized__test/curl-request.adoc[]
-//
-// === 회원상세보기 (권한 없음 실패)
-// ===== Request Example
-// include::{snippets}/{user}/detail_fail_forbidden_test/http-request.adoc[]
-//
-// ===== Response Example
-// include::{snippets}/{user}/detail_fail_forbidden_test/http-response.adoc[]
-//
-// ===== Curl
-// include::{snippets}/{user}/detail_fail_forbidden_test/curl-request.adoc[]
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+:admin: admin-controller-test
+:asset: asset-controller-test
+:cart: cart-controller-test
+:category: category-controller-test
+:order: order-controller-test
+:review: review-controller-test
+:user: user-controller-test
+:wish: wish-controller-test
+
+= REST API
+:toc: left
+:toclevels: 2
+:source-highlighter: highlightjs
+
+
+
+== 관리자
+=== 관리자 카테고리 조회 (성공)
+===== Request Example
+include::{snippets}/{admin}/get_category_list_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_category_list_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_category_list_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_category_list_test/request-headers.adoc[]
+
+=== 관리자 카테고리 조회 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{admin}/get_category_list_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_category_list_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_category_list_fail_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_category_list_fail_test/request-headers.adoc[]
+
+=== 관리자 서브 카테고리 조회 (성공)
+===== Request Example
+include::{snippets}/{admin}/get_sub_category_list_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_sub_category_list_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_sub_category_list_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_sub_category_list_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{admin}/get_sub_category_list_test/path-parameters.adoc[]
+
+=== 관리자 서브 카테고리 조회 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{admin}/get_sub_category_list_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_sub_category_list_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_sub_category_list_fail_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_sub_category_list_fail_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{admin}/get_sub_category_list_fail_test/path-parameters.adoc[]
+
+=== 관리자 에셋 비활성화 (성공)
+===== Request Example
+include::{snippets}/{admin}/inactive_asset_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/inactive_asset_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/inactive_asset_test/curl-request.adoc[]
+include::{snippets}/{admin}/inactive_asset_test/request-headers.adoc[]
+
+=== 관리자 에셋 비활성화 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{admin}/inactive_asset_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/inactive_asset_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/inactive_asset_fail_test/curl-request.adoc[]
+include::{snippets}/{admin}/inactive_asset_fail_test/request-headers.adoc[]
+
+=== 관리자 에셋 활성화 (성공)
+===== Request Example
+include::{snippets}/{admin}/active_asset_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/active_asset_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/active_asset_test/curl-request.adoc[]
+include::{snippets}/{admin}/active_asset_test/request-headers.adoc[]
+
+=== 관리자 에셋 활성화 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{admin}/active_asset_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/active_asset_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/active_asset_fail_test/curl-request.adoc[]
+include::{snippets}/{admin}/active_asset_fail_test/request-headers.adoc[]
+
+=== 관리자 에셋 조회 (카테고리 - 성공)
+===== Request Example
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_test/request-headers.adoc[]
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_test/request-parameters.adoc[]
+
+=== 관리자 에셋 조회 (카테고리&서브카테고리 - 성공)
+===== Request Example
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_and_sub_category_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_and_sub_category_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_and_sub_category_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_and_sub_category_test/request-parameters.adoc[]
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_and_sub_category_test/request-headers.adoc[]
+
+=== 관리자 에셋 조회 (상품명 - 성공)
+===== Request Example
+include::{snippets}/{admin}/get_asset_list_by_admin_with_asset_name_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_asset_list_by_admin_with_asset_name_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_asset_list_by_admin_with_asset_name_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_asset_list_by_admin_with_asset_name_test/request-headers.adoc[]
+include::{snippets}/{admin}/get_asset_list_by_admin_with_asset_name_test/request-parameters.adoc[]
+
+=== 관리자 에셋 조회 (status=false - 성공)
+===== Request Example
+include::{snippets}/{admin}/get_asset_list_by_admin_with_status_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_asset_list_by_admin_with_status_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_asset_list_by_admin_with_status_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_asset_list_by_admin_with_status_test/request-parameters.adoc[]
+include::{snippets}/{admin}/get_asset_list_by_admin_with_status_test/request-headers.adoc[]
+
+=== 관리자 주문내역 조회 (기간 & 주문일 최신순 - 성공)
+===== Request Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_test/request-parameters.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_test/request-headers.adoc[]
+
+=== 관리자 주문내역 조회 (기간 & 주문일 오래된순 - 성공)
+===== Request Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_sort_asc_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_sort_asc_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_sort_asc_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_sort_asc_test/request-parameters.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_sort_asc_test/request-headers.adoc[]
+
+=== 관리자 주문내역 조회 (기간 & 주문번호 - 성공)
+===== Request Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_order_number_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_order_number_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_order_number_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_order_number_test/request-parameters.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_order_number_test/request-headers.adoc[]
+
+=== 관리자 주문내역 조회 (기간 & 상품번호 - 성공)
+===== Request Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_number_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_number_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_number_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_number_test/request-parameters.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_number_test/request-headers.adoc[]
+
+=== 관리자 주문내역 조회 (기간 & 상품명 - 성공)
+===== Request Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_name_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_name_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_name_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_name_test/request-parameters.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_name_test/request-headers.adoc[]
+
+=== 관리자 주문내역 조회 (기간 & 이메일 - 성공)
+===== Request Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_email_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_email_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_email_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_email_test/request-parameters.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_email_test/request-headers.adoc[]
+
+=== 관리자 에셋 수정 (성공)
+===== Request Example
+include::{snippets}/{admin}/update_asset_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/update_asset_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/update_asset_test/curl-request.adoc[]
+include::{snippets}/{admin}/update_asset_test/request-headers.adoc[]
+
+=== 관리자 에셋 수정 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{admin}/update_asset_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/update_asset_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/update_asset_fail_test/curl-request.adoc[]
+include::{snippets}/{admin}/update_asset_fail_test/request-headers.adoc[]
+
+=== 관리자 에셋 등록 (성공)
+===== Request Example
+include::{snippets}/{admin}/add_asset_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/add_asset_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/add_asset_test/curl-request.adoc[]
+include::{snippets}/{admin}/add_asset_test/request-headers.adoc[]
+
+=== 관리자 에셋 등록 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{admin}/add_asset_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/add_asset_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/add_asset_fail_test/curl-request.adoc[]
+include::{snippets}/{admin}/add_asset_fail_test/request-headers.adoc[]
+
+
+
+== 에셋
+=== 에셋 상세정보 (비로그인유저 - 성공)
+===== Request Example
+include::{snippets}/{asset}/get_asset_details_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{asset}/get_asset_details_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{asset}/get_asset_details_test/curl-request.adoc[]
+[caption=]
+include::{snippets}/{asset}/get_asset_details_test/path-parameters.adoc[]
+
+=== 에셋 상세정보 (로그인유저 - 성공)
+===== Request Example
+include::{snippets}/{asset}/get_asset_details_with_user_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{asset}/get_asset_details_with_user_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{asset}/get_asset_details_with_user_test/curl-request.adoc[]
+
+include::{snippets}/{asset}/get_asset_details_with_user_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{asset}/get_asset_details_with_user_test/path-parameters.adoc[]
+
+=== 개별 에셋 (비로그인유저 - 성공)
+===== Request Example
+include::{snippets}/{asset}/get_asset_list_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{asset}/get_asset_list_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{asset}/get_asset_list_test/curl-request.adoc[]
+include::{snippets}/{asset}/get_asset_list_test/request-parameters.adoc[]
+
+=== 개별 에셋 (로그인유저 - 성공)
+===== Request Example
+include::{snippets}/{asset}/get_asset_list_with_user_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{asset}/get_asset_list_with_user_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{asset}/get_asset_list_with_user_test/curl-request.adoc[]
+include::{snippets}/{asset}/get_asset_list_with_user_test/request-parameters.adoc[]
+include::{snippets}/{asset}/get_asset_list_with_user_test/request-headers.adoc[]
+
+=== 카테고리별 에셋 조회 (비로그인유저 - 성공)
+===== Request Example
+include::{snippets}/{asset}/get_asset_list_by_category_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{asset}/get_asset_list_by_category_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{asset}/get_asset_list_by_category_test/curl-request.adoc[]
+include::{snippets}/{asset}/get_asset_list_by_category_test/request-parameters.adoc[]
+[caption=]
+include::{snippets}/{asset}/get_asset_details_with_user_test/path-parameters.adoc[]
+
+=== 카테고리별 에셋 조회 (로그인유저 - 성공)
+===== Request Example
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_test/curl-request.adoc[]
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_test/request-parameters.adoc[]
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_test/path-parameters.adoc[]
+
+=== 카테고리별 에셋 검색 (비로그인유저 - 성공)
+===== Request Example
+include::{snippets}/{asset}/get_asset_list_by_category_with_search_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{asset}/get_asset_list_by_category_with_search_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{asset}/get_asset_list_by_category_with_search_test/curl-request.adoc[]
+include::{snippets}/{asset}/get_asset_list_by_category_with_search_test/request-parameters.adoc[]
+[caption=]
+include::{snippets}/{asset}/get_asset_list_by_category_with_search_test/path-parameters.adoc[]
+
+=== 카테고리별 에셋 검색 (로그인유저 - 성공)
+===== Request Example
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_with_search_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_with_search_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_with_search_test/curl-request.adoc[]
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_with_search_test/request-parameters.adoc[]
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_with_search_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_with_search_test/path-parameters.adoc[]
+
+=== 하위 카테고리별 에셋 조회 (비로그인유저 - 성공)
+===== Request Example
+include::{snippets}/{asset}/find_asset_list_by_sub_category_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{asset}/find_asset_list_by_sub_category_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{asset}/find_asset_list_by_sub_category_test/curl-request.adoc[]
+include::{snippets}/{asset}/find_asset_list_by_sub_category_test/request-parameters.adoc[]
+[caption=]
+include::{snippets}/{asset}/find_asset_list_by_sub_category_test/path-parameters.adoc[]
+
+=== 하위 카테고리별 에셋 조회 (로그인유저 - 성공)
+===== Request Example
+include::{snippets}/{asset}/find_asset_list_with_user_by_sub_category_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{asset}/find_asset_list_with_user_by_sub_category_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{asset}/find_asset_list_with_user_by_sub_category_test/curl-request.adoc[]
+include::{snippets}/{asset}/find_asset_list_with_user_by_sub_category_test/request-parameters.adoc[]
+include::{snippets}/{asset}/find_asset_list_with_user_by_sub_category_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{asset}/find_asset_list_with_user_by_sub_category_test/path-parameters.adoc[]
+
+=== 에셋 검색 (비로그인유저 - 성공)
+===== Request Example
+include::{snippets}/{asset}/find_asset_list_by_search_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{asset}/find_asset_list_by_search_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{asset}/find_asset_list_by_search_test/curl-request.adoc[]
+include::{snippets}/{asset}/find_asset_list_by_search_test/request-parameters.adoc[]
+
+=== 에셋 검색 (로그인유저 - 성공)
+===== Request Example
+include::{snippets}/{asset}/find_asset_list_with_user_by_search_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{asset}/find_asset_list_with_user_by_search_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{asset}/find_asset_list_with_user_by_search_test/curl-request.adoc[]
+include::{snippets}/{asset}/find_asset_list_with_user_by_search_test/request-parameters.adoc[]
+include::{snippets}/{asset}/find_asset_list_with_user_by_search_test/request-headers.adoc[]
+
+=== 카테고리별 에셋 조회 (태그, 비로그인유저 - 성공)
+===== Request Example
+include::{snippets}/{asset}/get_asset_list_by_category_with_tag_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{asset}/get_asset_list_by_category_with_tag_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{asset}/get_asset_list_by_category_with_tag_test/curl-request.adoc[]
+include::{snippets}/{asset}/get_asset_list_by_category_with_tag_test/request-parameters.adoc[]
+[caption=]
+include::{snippets}/{asset}/get_asset_list_by_category_with_tag_test/path-parameters.adoc[]
+
+=== 카테고리별 에셋 조회 (태그, 로그인유저 - 성공)
+===== Request Example
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_with_tag_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_with_tag_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_with_tag_test/curl-request.adoc[]
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_with_tag_test/request-parameters.adoc[]
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_with_tag_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{asset}/get_asset_list_with_user_by_category_with_tag_test/path-parameters.adoc[]
+
+
+
+== 장바구니
+=== 장바구니 담기 (성공)
+===== Request Example
+include::{snippets}/{cart}/add_cart_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{cart}/add_cart_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{cart}/add_cart_test/curl-request.adoc[]
+include::{snippets}/{cart}/add_cart_test/request-headers.adoc[]
+
+=== 장바구니 담기 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{cart}/add_cart_auth_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{cart}/add_cart_auth_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{cart}/add_cart_auth_fail_test/curl-request.adoc[]
+include::{snippets}/{cart}/add_cart_auth_fail_test/request-headers.adoc[]
+
+=== 장바구니 삭제 (성공)
+===== Request Example
+include::{snippets}/{cart}/delete_cart_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{cart}/delete_cart_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{cart}/delete_cart_test/curl-request.adoc[]
+include::{snippets}/{cart}/delete_cart_test/request-headers.adoc[]
+
+=== 장바구니 담기 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{cart}/delete_cart_auth_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{cart}/delete_cart_auth_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{cart}/delete_cart_auth_fail_test/curl-request.adoc[]
+include::{snippets}/{cart}/delete_cart_auth_fail_test/request-headers.adoc[]
+
+=== 장바구니 개수 조회 (성공)
+===== Request Example
+include::{snippets}/{cart}/count_cart_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{cart}/count_cart_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{cart}/count_cart_test/curl-request.adoc[]
+include::{snippets}/{cart}/count_cart_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{cart}/count_cart_test/path-parameters.adoc[]
+
+=== 장바구니 개수 조회 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{cart}/count_cart_auth_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{cart}/count_cart_auth_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{cart}/count_cart_auth_fail_test/curl-request.adoc[]
+include::{snippets}/{cart}/count_cart_auth_fail_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{cart}/count_cart_auth_fail_test/path-parameters.adoc[]
+
+=== 장바구니 조회 (성공)
+===== Request Example
+include::{snippets}/{cart}/show_cart_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{cart}/show_cart_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{cart}/show_cart_test/curl-request.adoc[]
+include::{snippets}/{cart}/show_cart_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{cart}/show_cart_test/path-parameters.adoc[]
+
+=== 장바구니 조회 (0개 조회 성공)
+===== Request Example
+include::{snippets}/{cart}/show_cart_0_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{cart}/show_cart_0_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{cart}/show_cart_0_test/curl-request.adoc[]
+include::{snippets}/{cart}/show_cart_0_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{cart}/show_cart_0_test/path-parameters.adoc[]
+
+=== 장바구니 조회 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{cart}/show_cart_auth_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{cart}/show_cart_auth_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{cart}/show_cart_auth_fail_test/curl-request.adoc[]
+include::{snippets}/{cart}/show_cart_auth_fail_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{cart}/show_cart_auth_fail_test/path-parameters.adoc[]
+
+
+
+== 카테고리
+=== 카테고리별 이름,에셋수,태그리스트 조회 (성공)
+===== Request Example
+include::{snippets}/{category}/get_category_list_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{category}/get_category_list_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{category}/get_category_list_test/curl-request.adoc[]
+
+
+
+== 주문
+=== 주문 (성공)
+===== Request Example
+include::{snippets}/{order}/order_assets_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{order}/order_assets_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{order}/order_assets_test/curl-request.adoc[
+include::{snippets}/{order}/order_assets_test/request-headers.adoc[]
+
+=== 주문 (유저 조회 - 실패)
+===== Request Example
+include::{snippets}/{order}/order_assets_fail1_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{order}/order_assets_fail1_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{order}/order_assets_fail1_test/curl-request.adoc[]
+include::{snippets}/{order}/order_assets_fail1_test/request-headers.adoc[]
+
+=== 주문 (총 금액 불일치 - 실패)
+===== Request Example
+include::{snippets}/{order}/order_assets_fail2_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{order}/order_assets_fail2_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{order}/order_assets_fail2_test/curl-request.adoc[]
+include::{snippets}/{order}/order_assets_fail2_test/request-headers.adoc[]
+
+=== 주문 내역 조회 (성공)
+===== Request Example
+include::{snippets}/{order}/get_order_list_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{order}/get_order_list_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{order}/get_order_list_test/curl-request.adoc[]
+include::{snippets}/{order}/get_order_list_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{order}/get_order_list_test/request-parameters.adoc[]
+include::{snippets}/{order}/get_order_list_test/path-parameters.adoc[]
+
+=== 주문 내역 조회 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{order}/get_order_list_auth_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{order}/get_order_list_auth_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{order}/get_order_list_auth_fail_test/curl-request.adoc[]
+include::{snippets}/{order}/get_order_list_auth_fail_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{order}/get_order_list_auth_fail_test/path-parameters.adoc[]
+
+=== 주문 상세 조회 (성공)
+===== Request Example
+include::{snippets}/{order}/get_order_product_list_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{order}/get_order_product_list_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{order}/get_order_product_list_test/curl-request.adoc[]
+include::{snippets}/{order}/get_order_product_list_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{order}/get_order_product_list_test/path-parameters.adoc[]
+
+=== 주문 상세 조회 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{order}/get_order_product_list_auth_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{order}/get_order_product_list_auth_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{order}/get_order_product_list_auth_fail_test/curl-request.adoc[]
+include::{snippets}/{order}/get_order_product_list_auth_fail_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{order}/get_order_product_list_auth_fail_test/path-parameters.adoc[]
+
+=== 주문 상세 조회 (내 주문 내역 아님 - 실패)
+===== Request Example
+include::{snippets}/{order}/get_order_product_list_fail_others_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{order}/get_order_product_list_fail_others_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{order}/get_order_product_list_fail_others_test/curl-request.adoc[]
+include::{snippets}/{order}/get_order_product_list_fail_others_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{order}/get_order_product_list_fail_others_test/path-parameters.adoc[]
+
+=== 주문 상세 조회 (없는 주문 내역 - 실패)
+===== Request Example
+include::{snippets}/{order}/get_order_product_list_auth_fail_others_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{order}/get_order_product_list_auth_fail_others_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{order}/get_order_product_list_auth_fail_others_test/curl-request.adoc[]
+include::{snippets}/{order}/get_order_product_list_auth_fail_others_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{order}/get_order_product_list_auth_fail_others_test/path-parameters.adoc[]
+
+
+
+== 리뷰
+=== 리뷰보기 (비로그인유저 - 성공)
+===== Request Example
+include::{snippets}/{review}/get_reviews_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{review}/get_reviews_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{review}/get_reviews_test/curl-request.adoc[]
+[caption=]
+include::{snippets}/{review}/get_reviews_test/path-parameters.adoc[]
+
+=== 리뷰보기 (로그인유저 - 성공)
+===== Request Example
+include::{snippets}/{review}/get_reviews_with_user_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{review}/get_reviews_with_user_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{review}/get_reviews_with_user_test/curl-request.adoc[]
+include::{snippets}/{review}/get_reviews_with_user_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{review}/get_reviews_with_user_test/path-parameters.adoc[]
+
+=== 리뷰작성 (성공)
+===== Request Example
+include::{snippets}/{review}/add_review_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{review}/add_review_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{review}/add_review_test/curl-request.adoc[]
+include::{snippets}/{review}/add_review_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{review}/add_review_test/path-parameters.adoc[]
+
+=== 리뷰작성 (에셋 구매 안함 - 실패)
+===== Request Example
+include::{snippets}/{review}/add_review_fail_has_asset_false_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{review}/add_review_fail_has_asset_false_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{review}/add_review_fail_has_asset_false_test/curl-request.adoc[]
+include::{snippets}/{review}/add_review_fail_has_asset_false_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{review}/add_review_fail_has_asset_false_test/path-parameters.adoc[]
+
+=== 리뷰작성 (이전에 리뷰 작성함 - 실패)
+===== Request Example
+include::{snippets}/{review}/add_review_fail_has_review_true_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{review}/add_review_fail_has_review_true_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{review}/add_review_fail_has_review_true_test/curl-request.adoc[]
+include::{snippets}/{review}/add_review_fail_has_review_true_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{review}/add_review_fail_has_review_true_test/path-parameters.adoc[]
+
+=== 리뷰수정 (성공)
+===== Request Example
+include::{snippets}/{review}/update_review_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{review}/update_review_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{review}/update_review_test/curl-request.adoc[]
+include::{snippets}/{review}/update_review_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{review}/update_review_test/path-parameters.adoc[]
+
+=== 리뷰삭제 (성공)
+===== Request Example
+include::{snippets}/{review}/delete_review_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{review}/delete_review_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{review}/delete_review_test/curl-request.adoc[]
+include::{snippets}/{review}/delete_review_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{review}/delete_review_test/path-parameters.adoc[]
+
+
+
+== 회원
+=== 로그인 (성공)
+===== Request Example
+include::{snippets}/{user}/login_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/login_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/login_test/curl-request.adoc[]
+
+=== 로그인 (존재하지 않는 이메일 - 실패)
+===== Request Example
+include::{snippets}/{user}/login_invalid_email_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/login_invalid_email_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/login_invalid_email_fail_test/curl-request.adoc[]
+
+=== 로그인 (비밀번호 입력 오류 - 실패)
+===== Request Example
+include::{snippets}/{user}/login_invalid_password_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/login_invalid_password_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/login_invalid_password_fail_test/curl-request.adoc[]
+
+=== 비밀번호 변경 인증코드 전송 (성공)
+===== Request Example
+include::{snippets}/{user}/send_password_change_code_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/send_password_change_code_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/send_password_change_code_test/curl-request.adoc[]
+
+=== 비밀번호 변경 인증코드 전송 (사용자 이름 불일치 - 실패)
+===== Request Example
+include::{snippets}/{user}/send_password_change_code_invalid_name_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/send_password_change_code_invalid_name_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/send_password_change_code_invalid_name_test/curl-request.adoc[]
+
+=== 비밀번호 변경 인증코드 확인 (성공)
+===== Request Example
+include::{snippets}/{user}/check_password_change_code_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/check_password_change_code_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/check_password_change_code_test/curl-request.adoc[]
+
+=== 비밀번호 변경 인증코드 확인 (없는 이메일 - 실패)
+===== Request Example
+include::{snippets}/{user}/check_password_change_code_invalid_email_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/check_password_change_code_invalid_email_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/check_password_change_code_invalid_email_test/curl-request.adoc[]
+
+=== 비밀번호 변경 인증코드 확인 (인증코드 불일치 - 실패)
+===== Request Example
+include::{snippets}/{user}/check_password_change_code_invalid_code_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/check_password_change_code_invalid_code_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/check_password_change_code_invalid_code_test/curl-request.adoc[]
+
+=== 비밀번호 변경 인증코드 확인 (인증코드 만료 - 실패)
+===== Request Example
+include::{snippets}/{user}/check_password_change_code_expired_code_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/check_password_change_code_expired_code_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/check_password_change_code_expired_code_test/curl-request.adoc[]
+
+=== 비밀번호 변경 (성공)
+===== Request Example
+include::{snippets}/{user}/change_password_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/change_password_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/change_password_test/curl-request.adoc[]
+
+=== 비밀번호 변경 (인증코드 입력 안함 - 실패)
+===== Request Example
+include::{snippets}/{user}/change_password_null_code_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/change_password_null_code_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/change_password_null_code_test/curl-request.adoc[]
+
+=== 비밀번호 변경 (인증코드 불일치 - 실패)
+===== Request Example
+include::{snippets}/{user}/change_password_invalid_code_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/change_password_invalid_code_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/change_password_invalid_code_test/curl-request.adoc[]
+
+=== 이메일 중복 체크 (성공)
+===== Request Example
+include::{snippets}/{user}/check_email_duplicate_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/check_email_duplicate_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/check_email_duplicate_test/curl-request.adoc[]
+
+=== 이메일 중복 체크 (중복 - 실패)
+===== Request Example
+include::{snippets}/{user}/check_email_duplicate_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/check_email_duplicate_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/check_email_duplicate_fail_test/curl-request.adoc[]
+
+=== 회원가입 인증코드 전송 (성공)
+===== Request Example
+include::{snippets}/{user}/send_signup_code_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/send_signup_code_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/send_signup_code_test/curl-request.adoc[]
+
+=== 회원가입 인증코드 확인 (성공)
+===== Request Example
+include::{snippets}/{user}/check_signup_code_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/check_signup_code_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/check_signup_code_test/curl-request.adoc[]
+
+=== 회원가입 인증코드 확인 (없는 이메일 - 실패)
+===== Request Example
+include::{snippets}/{user}/check_signup_code_invalid_email_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/check_signup_code_invalid_email_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/check_signup_code_invalid_email_fail_test/curl-request.adoc[]
+
+=== 회원가입 인증코드 확인 (인증번호 불일치 - 실패)
+===== Request Example
+include::{snippets}/{user}/check_signup_code_invalid_code_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/check_signup_code_invalid_code_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/check_signup_code_invalid_code_fail_test/curl-request.adoc[]
+
+=== 회원가입 인증코드 확인 (인증번호 만료 - 실패)
+===== Request Example
+include::{snippets}/{user}/check_signup_code_expired_code_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/check_signup_code_expired_code_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/check_signup_code_expired_code_fail_test/curl-request.adoc[]
+
+=== 회원가입 (성공)
+===== Request Example
+include::{snippets}/{user}/signup_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/signup_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/signup_test/curl-request.adoc[]
+
+=== 회원가입 (이메일 인증 미완료 - 실패)
+===== Request Example
+include::{snippets}/{user}/signup_before_check_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/signup_before_check_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/signup_before_check_fail_test/curl-request.adoc[]
+
+=== 회원가입 (이름 불일치 - 실패)
+===== Request Example
+include::{snippets}/{user}/signup_invalid_name_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/signup_invalid_name_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/signup_invalid_name_fail_test/curl-request.adoc[]
+
+=== 비밀번호 확인 (성공)
+===== Request Example
+include::{snippets}/{user}/check_password_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/check_password_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/check_password_test/curl-request.adoc[]
+include::{snippets}/{user}/check_password_test/request-headers.adoc[]
+
+=== 비밀번호 확인 (비밀번호 불일치 - 실패)
+===== Request Example
+include::{snippets}/{user}/check_password_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/check_password_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/check_password_fail_test/curl-request.adoc[]
+include::{snippets}/{user}/check_password_fail_test/request-headers.adoc[]
+
+=== 회원탈퇴 (성공)
+===== Request Example
+include::{snippets}/{user}/withdraw_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/withdraw_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/withdraw_test/curl-request.adoc[]
+include::{snippets}/{user}/withdraw_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{user}/withdraw_test/path-parameters.adoc[]
+
+=== 회원탈퇴 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{user}/withdraw_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/withdraw_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/withdraw_fail_test/curl-request.adoc[]
+include::{snippets}/{user}/withdraw_fail_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{user}/withdraw_fail_test/path-parameters.adoc[]
+
+=== 회원정보 수정 (성공)
+===== Request Example
+include::{snippets}/{user}/update_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/update_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/update_test/curl-request.adoc[]
+include::{snippets}/{user}/update_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{user}/update_test/path-parameters.adoc[]
+
+=== 회원정보 수정 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{user}/update_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/withdraw_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/update_fail_test/curl-request.adoc[]
+include::{snippets}/{user}/update_fail_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{user}/update_fail_test/path-parameters.adoc[]
+
+=== 내 회원정보 조회 (성공)
+===== Request Example
+include::{snippets}/{user}/get_my_info_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/get_my_info_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/get_my_info_test/curl-request.adoc[]
+include::{snippets}/{user}/get_my_asset_list_test/request-headers.adoc[]
+
+=== 내 회원정보 조회 (인증 실패)
+===== Request Example
+include::{snippets}/{user}/get_my_info_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/get_my_info_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/get_my_info_fail_test/curl-request.adoc[]
+include::{snippets}/{user}/get_my_info_fail_test/request-headers.adoc[]
+
+=== 내 에셋 조회 (성공)
+===== Request Example
+include::{snippets}/{user}/get_my_asset_list_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/get_my_asset_list_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/get_my_asset_list_test/curl-request.adoc[]
+include::{snippets}/{user}/get_my_asset_list_test/request-headers.adoc[]
+include::{snippets}/{user}/get_my_asset_list_test/request-parameters.adoc[]
+[caption=]
+include::{snippets}/{user}/get_my_asset_list_test/path-parameters.adoc[]
+
+=== 내 에셋 조회 (인증 실패)
+===== Request Example
+include::{snippets}/{user}/get_my_asset_list_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/get_my_asset_list_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/get_my_asset_list_fail_test/curl-request.adoc[]
+include::{snippets}/{user}/get_my_asset_list_fail_test/request-headers.adoc[]
+include::{snippets}/{user}/get_my_asset_list_fail_test/request-parameters.adoc[]
+[caption=]
+include::{snippets}/{user}/get_my_asset_list_fail_test/path-parameters.adoc[]
+
+=== 내 에셋 검색 (성공)
+===== Request Example
+include::{snippets}/{user}/search_my_asset_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/search_my_asset_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/search_my_asset_test/curl-request.adoc[]
+include::{snippets}/{user}/search_my_asset_test/request-headers.adoc[]
+include::{snippets}/{user}/search_my_asset_test/request-parameters.adoc[]
+[caption=]
+include::{snippets}/{user}/search_my_asset_test/path-parameters.adoc[]
+
+=== 내 에셋 검색 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{user}/search_my_asset_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/search_my_asset_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/search_my_asset_fail_test/curl-request.adoc[]
+include::{snippets}/{user}/search_my_asset_fail_test/request-headers.adoc[]
+include::{snippets}/{user}/search_my_asset_fail_test/request-parameters.adoc[]
+[caption=]
+include::{snippets}/{user}/search_my_asset_fail_test/path-parameters.adoc[]
+
+=== 내 에셋 다운 (성공)
+===== Request Example
+include::{snippets}/{user}/download_my_asset_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/download_my_asset_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/download_my_asset_test/curl-request.adoc[]
+include::{snippets}/{user}/get_my_asset_list_test/request-headers.adoc[]
+
+=== 내 에셋 다운 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{user}/download_my_asset_fail1_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/download_my_asset_fail1_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/download_my_asset_fail1_test/curl-request.adoc[]
+include::{snippets}/{user}/get_my_asset_list_test/request-headers.adoc[]
+
+=== 내 에셋 다운 (해당 에셋 보유 안함 - 실패)
+===== Request Example
+include::{snippets}/{user}/download_my_asset_fail2_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/download_my_asset_fail2_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{user}/download_my_asset_fail2_test/curl-request.adoc[]
+include::{snippets}/{user}/get_my_asset_list_test/request-headers.adoc[]
+
+
+
+== 위시리스트
+=== 위시리스트 담기 (성공)
+===== Request Example
+include::{snippets}/{wish}/add_wish_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{wish}/add_wish_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{wish}/add_wish_test/curl-request.adoc[]
+include::{snippets}/{wish}/add_wish_test/request-headers.adoc[]
+
+=== 위시리스트 담기 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{wish}/add_wish_auth_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{wish}/add_wish_auth_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{wish}/add_wish_auth_fail_test/curl-request.adoc[]
+include::{snippets}/{wish}/add_wish_auth_fail_test/request-headers.adoc[]
+
+=== 위시리스트 삭제 (성공)
+===== Request Example
+include::{snippets}/{wish}/delete_wish_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{wish}/delete_wish_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{wish}/delete_wish_test/curl-request.adoc[]
+include::{snippets}/{wish}/delete_wish_test/request-headers.adoc[]
+
+=== 위시리스트 삭제 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{wish}/delete_wish_auth_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{wish}/delete_wish_auth_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{wish}/delete_wish_auth_fail_test/curl-request.adoc[]
+include::{snippets}/{wish}/delete_wish_auth_fail_test/request-headers.adoc[]
+
+=== 위시리스트 조회 (성공)
+===== Request Example
+include::{snippets}/{wish}/show_wish_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{wish}/show_wish_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{wish}/show_wish_test/curl-request.adoc[]
+include::{snippets}/{wish}/show_wish_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{wish}/show_wish_test/path-parameters.adoc[]
+
+=== 위시리스트 조회 (0개 조회 - 성공)
+===== Request Example
+include::{snippets}/{wish}/show_wish_0_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{wish}/show_wish_0_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{wish}/show_wish_0_test/curl-request.adoc[]
+include::{snippets}/{wish}/show_wish_0_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{wish}/show_wish_0_test/path-parameters.adoc[]
+
+=== 위시리스트 조회 (권한 체크 실패)
+===== Request Example
+include::{snippets}/{wish}/show_wish_auth_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{wish}/show_wish_auth_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{wish}/show_wish_auth_fail_test/curl-request.adoc[]
+include::{snippets}/{wish}/show_wish_auth_fail_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{wish}/show_wish_auth_fail_test/path-parameters.adoc[]

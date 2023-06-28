@@ -35,6 +35,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -114,6 +118,7 @@ public class ReviewControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.data.hasAsset").value(false))
                 .andExpect(jsonPath("$.data.hasReview").value(false))
                 .andExpect(jsonPath("$.data.hasWishlist").value(false));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("에셋 id"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -135,6 +140,8 @@ public class ReviewControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.hasReview").value(true));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("에셋 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -173,13 +180,15 @@ public class ReviewControllerTest extends MyRestDoc {
         assertEquals(2L, assetPS.getReviewCount()); // 작성 후 ReviewCount는 증가한다.
         System.out.println("ReviewCount: "+assetPS.getReviewCount());
         System.out.println("AssetRating: "+assetPS.getRating());
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("에셋 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("리뷰작성 실패 : 에셋 구매 안함")
     @WithUserDetails(value = "songjaegeun2@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
-    public void add_review_fail_hasAsset_false_test() throws Exception {
+    public void add_review_fail_has_asset_false_test() throws Exception {
         // Given
         Long id = 31L; // 에셋 id
         Long userId = 2L;
@@ -199,13 +208,15 @@ public class ReviewControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value("403"))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("이 에셋을 구매하지 않았습니다. "));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("에셋 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("리뷰작성 실패 : 이전에 리뷰 작성함")
     @WithUserDetails(value = "yangjinho3@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
-    public void add_review_fail_hasReview_true_test() throws Exception {
+    public void add_review_fail_has_review_true_test() throws Exception {
         // Given
         Long id = 31L; // 에셋 id
         Long userId = 3L;
@@ -225,6 +236,8 @@ public class ReviewControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value("403"))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("이미 이 에셋의 리뷰를 작성하셨습니다. "));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("에셋 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -241,7 +254,7 @@ public class ReviewControllerTest extends MyRestDoc {
 
         // When
         ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders
-                .post("/s/assets/{assetid}/reviews/{reviewId}", assetId, reviewId)
+                .post("/s/assets/{assetId}/reviews/{reviewId}", assetId, reviewId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(om.writeValueAsString(updateReviewInDTO)));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
@@ -262,6 +275,8 @@ public class ReviewControllerTest extends MyRestDoc {
         assertEquals(1L, assetPS.getReviewCount()); // 수정 후 ReviewCount는 변하지 않아야 한다.
         System.out.println("ReviewCount: "+assetPS.getReviewCount());
         System.out.println("Asset Rating: "+assetPS.getRating());
+        resultActions.andDo(document.document(pathParameters(parameterWithName("assetId").description("에셋 id"), parameterWithName("reviewId").description("리뷰 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -296,6 +311,8 @@ public class ReviewControllerTest extends MyRestDoc {
         assertEquals(0D, assetPS.getRating());
         System.out.println("ReviewCount: "+assetPS.getReviewCount());
         System.out.println("Asset Rating: "+assetPS.getRating());
+        resultActions.andDo(document.document(pathParameters(parameterWithName("assetId").description("에셋 id"), parameterWithName("reviewId").description("리뷰 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

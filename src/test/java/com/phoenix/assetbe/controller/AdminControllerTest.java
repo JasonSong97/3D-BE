@@ -11,7 +11,7 @@ import com.phoenix.assetbe.model.order.OrderProduct;
 import com.phoenix.assetbe.model.order.OrderProductRepository;
 import com.phoenix.assetbe.model.order.OrderRepository;
 import com.phoenix.assetbe.model.user.User;
-import com.phoenix.assetbe.model.user.UserRepository;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,6 +21,7 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.security.test.context.support.TestExecutionEvent;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
@@ -38,7 +39,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -104,6 +107,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -120,6 +124,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -134,12 +139,14 @@ public class AdminControllerTest extends MyRestDoc {
         String categoryName = "pretty";
 
         // when
-        ResultActions resultActions = mockMvc.perform(get("/s/admin/{categoryName}/subcategory", categoryName));
+        ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders.get("/s/admin/{categoryName}/subcategory", categoryName));
 
         // then
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("categoryName").description("카테고리 name"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -151,12 +158,14 @@ public class AdminControllerTest extends MyRestDoc {
         String categoryName = "pretty";
 
         // when
-        ResultActions resultActions = mockMvc.perform(get("/s/admin/{categoryName}/subcategory", categoryName));
+        ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders.get("/s/admin/{categoryName}/subcategory", categoryName));
 
         // then
         resultActions.andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("categoryName").description("카테고리 name"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -185,6 +194,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
             .andExpect(jsonPath("$.status").value(200))
             .andExpect(jsonPath("$.msg").value("성공"));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -210,6 +220,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -233,6 +244,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -258,6 +270,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -271,7 +284,7 @@ public class AdminControllerTest extends MyRestDoc {
 
         // When
         ResultActions resultActions = mockMvc.perform(
-                get("/s/admin/assets")
+                RestDocumentationRequestBuilders.get("/s/admin/assets")
                         .param("category", "luxury"));
 
         // Then
@@ -282,6 +295,8 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.assetList.size()").value(6L));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("category").description("카테고리"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -307,6 +322,8 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.assetList.size()").value(1L));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("category").description("카테고리"), parameterWithName("subcategory").description("서브카테고리"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -320,7 +337,7 @@ public class AdminControllerTest extends MyRestDoc {
 
         // When
         ResultActions resultActions = mockMvc.perform(
-                get("/s/admin/assets")
+                RestDocumentationRequestBuilders.get("/s/admin/assets")
                         .param("name", "luxury boy"));
 
         // Then
@@ -331,6 +348,8 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.assetList.size()").value(1L));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("name").description("상품명"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -355,6 +374,8 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.assetList.size()").value(0L));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("status").description("상태값"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -404,6 +425,8 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.orderList.size()").value(4L));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("period").description("기간"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -455,6 +478,8 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.orderList.size()").value(4L))
                 .andExpect(jsonPath("$.data.orderList[0].assetName").value("aaaaa 외 8건"));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("sort").description("정렬 기준"), parameterWithName("period").description("기간"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -505,6 +530,8 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.orderList.size()").value(1L));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("onum").description("주문 번호"), parameterWithName("period").description("기간"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -555,6 +582,8 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.orderList.size()").value(1L));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("anum").description("주문 번호"), parameterWithName("period").description("기간"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
@@ -606,6 +635,8 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.orderList.size()").value(1L));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("name").description("상품 이름"), parameterWithName("period").description("기간"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -644,7 +675,7 @@ public class AdminControllerTest extends MyRestDoc {
 
         // When
         ResultActions resultActions = mockMvc.perform(
-                get("/s/admin/orders")
+                RestDocumentationRequestBuilders.get("/s/admin/orders")
                         .param("email","yuhyunju1@nate.com")
                         .param("period","oneWeek"));
 
@@ -656,6 +687,8 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.orderList.size()").value(1L));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("email").description("이메일"), parameterWithName("period").description("기간"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -711,6 +744,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.msg").value("성공"));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -762,6 +796,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -821,6 +856,7 @@ public class AdminControllerTest extends MyRestDoc {
         assertEquals("robot", subCategory.get().getSubCategoryName());
         assertEquals(15, tagList.size());
         assertEquals("한글", tagList.get(10).getTagName());
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -872,6 +908,7 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

@@ -18,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.security.test.context.support.TestExecutionEvent;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
@@ -33,6 +34,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -101,6 +105,7 @@ public class CartControllerTest extends MyRestDoc {
 
         List<Cart> cartItems = cartRepository.findAllByUser(1L);
         assertEquals(10, cartItems.size());
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -130,6 +135,7 @@ public class CartControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -160,6 +166,7 @@ public class CartControllerTest extends MyRestDoc {
 
         List<Cart> cartItems = cartRepository.findAllByUser(userId);
         assertEquals(7, cartItems.size());
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -188,6 +195,7 @@ public class CartControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -199,7 +207,7 @@ public class CartControllerTest extends MyRestDoc {
         Long id = 1L;
 
         // When
-        ResultActions resultActions = mockMvc.perform(get("/s/user/{id}/cartCount", id));
+        ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders.get("/s/user/{id}/cartCount", id));
 
         // Then
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
@@ -208,6 +216,8 @@ public class CartControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.cartCount").value(8));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("유저 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -219,7 +229,7 @@ public class CartControllerTest extends MyRestDoc {
         Long id = 2L;
 
         // When
-        ResultActions resultActions = mockMvc.perform(get("/s/user/{id}/cartCount", id));
+        ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders.get("/s/user/{id}/cartCount", id));
 
         // Then
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
@@ -228,6 +238,8 @@ public class CartControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("유저 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -239,7 +251,7 @@ public class CartControllerTest extends MyRestDoc {
         Long id = 1L;
 
         // When
-        ResultActions resultActions = mockMvc.perform(get("/s/user/{id}/cart", id));
+        ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders.get("/s/user/{id}/cart", id));
 
         // Then
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
@@ -247,6 +259,8 @@ public class CartControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("유저 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -258,7 +272,7 @@ public class CartControllerTest extends MyRestDoc {
         Long id = 4L;
 
         // When
-        ResultActions resultActions = mockMvc.perform(get("/s/user/{id}/cart", id));
+        ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders.get("/s/user/{id}/cart", id));
 
         // Then
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
@@ -267,6 +281,8 @@ public class CartControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("유저 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
@@ -278,7 +294,7 @@ public class CartControllerTest extends MyRestDoc {
         Long id = 2L;
 
         // When
-        ResultActions resultActions = mockMvc.perform(get("/s/user/{id}/cart", id));
+        ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders.get("/s/user/{id}/cart", id));
 
         // Then
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
@@ -287,6 +303,8 @@ public class CartControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("유저 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }
