@@ -56,6 +56,7 @@ public class DummyEntity {
     }
 
     public Asset newAsset(String assetName, Double price, Double size, LocalDate date, Double rating, Long reviewCount) {
+        String thumbnail = "fbx/2023/06/27/50183637-2dff-4e5e-8b1b-07153ac11b64.fbx" ;
         return Asset.builder()
                 .assetName(assetName)
                 .price(price)
@@ -70,8 +71,8 @@ public class DummyEntity {
                 .reviewCount(reviewCount)
                 .status(true)
                 .updatedAt(LocalDateTime.now())
-                .fileUrl(".")
-                .thumbnailUrl(".")
+                .fileUrl("fbx/2023/06/27/50183637-2dff-4e5e-8b1b-07153ac11b64.fbx")
+                .thumbnailUrl("thumbnail/2023/06/27/f2b145c6-dd28-4640-b23c-0dbc729ed94e.png")
                 .build();
     }
 
@@ -91,8 +92,8 @@ public class DummyEntity {
                 .reviewCount(reviewCount)
                 .status(true)
                 .updatedAt(LocalDateTime.now())
-                .fileUrl(".")
-                .thumbnailUrl(".")
+                .fileUrl("fbx/2023/06/27/50183637-2dff-4e5e-8b1b-07153ac11b64.fbx")
+                .thumbnailUrl("thumbnail/2023/06/27/f2b145c6-dd28-4640-b23c-0dbc729ed94e.png")
                 .build();
     }
 }
