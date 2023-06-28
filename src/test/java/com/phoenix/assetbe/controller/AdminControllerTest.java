@@ -49,7 +49,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("관리자 컨트롤러 TEST")
 @ActiveProfiles("test")
 @Sql("classpath:db/teardown.sql")
-@AutoConfigureRestDocs(uriScheme = "http", uriHost = "localhost", uriPort = 8080)
+@AutoConfigureRestDocs(uriScheme = "https", uriHost = "neuroid-asset.shop", uriPort = 443)
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
@@ -300,6 +300,31 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
+    @DisplayName("관리자 에셋 조회: 카테고리 - 실패 - 권한 체크 ")
+    @WithUserDetails(value = "yangjinho3@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void get_asset_list_by_admin_with_category_fail_test() throws Exception {
+        // Given
+        String page = "0";
+        String size = "4";
+
+        // When
+        ResultActions resultActions = mockMvc.perform(
+                get("/s/admin/assets")
+                        .param("category", "luxury"));
+
+        // Then
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 response : " + responseBody);
+
+        resultActions.andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.msg").value("forbidden"))
+                .andExpect(jsonPath("$.status").value(403));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("category").description("카테고리"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
     @DisplayName("관리자 에셋 조회: 카테고리&서브카테고리 - 성공")
     @WithUserDetails(value = "kuanliza8@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
@@ -322,6 +347,32 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.assetList.size()").value(1L));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("category").description("카테고리"), parameterWithName("subcategory").description("서브카테고리"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @DisplayName("관리자 에셋 조회: 카테고리&서브카테고리 - 실패 - 권한 체크")
+    @WithUserDetails(value = "yangjinho3@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void get_asset_list_by_admin_with_category_and_sub_category_fail_test() throws Exception {
+        // Given
+        String page = "0";
+        String size = "4";
+
+        // When
+        ResultActions resultActions = mockMvc.perform(
+                get("/s/admin/assets")
+                        .param("category", "luxury")
+                        .param("subcategory", "man"));
+
+        // Then
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 response : " + responseBody);
+
+        resultActions.andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.msg").value("forbidden"))
+                .andExpect(jsonPath("$.status").value(403));
         resultActions.andDo(document.document(requestParameters(parameterWithName("category").description("카테고리"), parameterWithName("subcategory").description("서브카테고리"))));
         resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
@@ -353,6 +404,31 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
+    @DisplayName("관리자 에셋 조회: 상품명 - 실패 - 권한 체크")
+    @WithUserDetails(value = "yangjinho3@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void get_asset_list_by_admin_with_asset_name_fail_test() throws Exception {
+        // Given
+        String page = "0";
+        String size = "4";
+
+        // When
+        ResultActions resultActions = mockMvc.perform(
+                get("/s/admin/assets")
+                        .param("name", "luxury boy"));
+
+        // Then
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 response : " + responseBody);
+
+        resultActions.andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.msg").value("forbidden"))
+                .andExpect(jsonPath("$.status").value(403));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("name").description("상품명"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
     @DisplayName("관리자 에셋 조회: status=false - 성공")
     @WithUserDetails(value = "kuanliza8@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
@@ -374,6 +450,31 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.assetList.size()").value(0L));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("status").description("상태값"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @DisplayName("관리자 에셋 조회: status=false - 실패 - 권한 체크")
+    @WithUserDetails(value = "yangjinho3@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void get_asset_list_by_admin_with_status_fail_test() throws Exception {
+        // Given
+        String page = "1";
+        String size = "4";
+
+        // When
+        ResultActions resultActions = mockMvc.perform(
+                get("/s/admin/assets")
+                        .param("status", "false"));
+
+        // Then
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 response : " + responseBody);
+
+        resultActions.andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.msg").value("forbidden"))
+                .andExpect(jsonPath("$.status").value(403));
         resultActions.andDo(document.document(requestParameters(parameterWithName("status").description("상태값"))));
         resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
@@ -425,6 +526,31 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.orderList.size()").value(4L));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("period").description("기간"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @DisplayName("관리자 주문내역 조회: 기간 & 주문일 최신순 - 실패 - 권한 체크")
+    @WithUserDetails(value = "yangjinho3@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void get_order_list_by_admin_with_period_fail_test() throws Exception {
+        // Given
+        String page = "0";
+        String size = "4";
+
+        // When
+        ResultActions resultActions = mockMvc.perform(
+                get("/s/admin/orders")
+                        .param("period","oneWeek"));
+
+        // Then
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 response : " + responseBody);
+
+        resultActions.andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.msg").value("forbidden"))
+                .andExpect(jsonPath("$.status").value(403));
         resultActions.andDo(document.document(requestParameters(parameterWithName("period").description("기간"))));
         resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
@@ -483,6 +609,32 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
+    @DisplayName("관리자 주문내역 조회: 기간 & 주문일 오래된순 - 실패 - 권한 체크")
+    @WithUserDetails(value = "yangjinho3@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void get_order_list_by_admin_with_period_and_sort_asc_fail_test() throws Exception {
+        // Given
+        String page = "0";
+        String size = "4";
+
+        // When
+        ResultActions resultActions = mockMvc.perform(
+                get("/s/admin/orders")
+                        .param("sort","createdAt,asc")
+                        .param("period","oneWeek"));
+
+        // Then
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 response : " + responseBody);
+
+        resultActions.andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.msg").value("forbidden"))
+                .andExpect(jsonPath("$.status").value(403));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("sort").description("정렬 기준"), parameterWithName("period").description("기간"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
     @DisplayName("관리자 주문내역 조회: 기간 & 주문번호 - 성공")
     @WithUserDetails(value = "kuanliza8@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
@@ -535,6 +687,32 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
+    @DisplayName("관리자 주문내역 조회: 기간 & 주문번호 - 실패 - 권한 체크")
+    @WithUserDetails(value = "yangjinho3@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void get_order_list_by_admin_with_period_and_order_number_fail_test() throws Exception {
+        // Given
+        String page = "0";
+        String size = "4";
+
+        // When
+        ResultActions resultActions = mockMvc.perform(
+                get("/s/admin/orders")
+                        .param("onum","20230625-000003")
+                        .param("period","oneWeek"));
+
+        // Then
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 response : " + responseBody);
+
+        resultActions.andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.msg").value("forbidden"))
+                .andExpect(jsonPath("$.status").value(403));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("onum").description("주문 번호"), parameterWithName("period").description("기간"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
     @DisplayName("관리자 주문내역 조회: 기간 & 상품번호 - 성공")
     @WithUserDetails(value = "kuanliza8@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
@@ -582,6 +760,33 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.orderList.size()").value(1L));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("anum").description("상품 번호"), parameterWithName("period").description("기간"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+
+    }
+
+    @DisplayName("관리자 주문내역 조회: 기간 & 상품번호 - 실패 - 권한 체크")
+    @WithUserDetails(value = "yangjinho3@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void get_order_list_by_admin_with_period_and_asset_number_fail_test() throws Exception {
+        // Given
+        String page = "0";
+        String size = "4";
+
+        // When
+        ResultActions resultActions = mockMvc.perform(
+                get("/s/admin/orders")
+                        .param("anum","20230625-000037")
+                        .param("period","oneWeek"));
+
+        // Then
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 response : " + responseBody);
+
+        resultActions.andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.msg").value("forbidden"))
+                .andExpect(jsonPath("$.status").value(403));
         resultActions.andDo(document.document(requestParameters(parameterWithName("anum").description("주문 번호"), parameterWithName("period").description("기간"))));
         resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
@@ -640,6 +845,32 @@ public class AdminControllerTest extends MyRestDoc {
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
+    @DisplayName("관리자 주문내역 조회: 기간 & 상품명 - 실패 - 권한 체크")
+    @WithUserDetails(value = "yangjinho3@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void get_order_list_by_admin_with_period_and_asset_name_fail_test() throws Exception {
+        // Given
+        String page = "0";
+        String size = "4";
+
+        // When
+        ResultActions resultActions = mockMvc.perform(
+                get("/s/admin/orders")
+                        .param("name","agggg")
+                        .param("period","oneWeek"));
+
+        // Then
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 response : " + responseBody);
+
+        resultActions.andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.msg").value("forbidden"))
+                .andExpect(jsonPath("$.status").value(403));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("name").description("상품 이름"), parameterWithName("period").description("기간"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
     @DisplayName("관리자 주문내역 조회: 기간 & 이메일 - 성공")
     @WithUserDetails(value = "kuanliza8@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
@@ -687,6 +918,32 @@ public class AdminControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.orderList.size()").value(1L));
+        resultActions.andDo(document.document(requestParameters(parameterWithName("email").description("이메일"), parameterWithName("period").description("기간"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @DisplayName("관리자 주문내역 조회: 기간 & 이메일 - 실패 - 권한 체크")
+    @WithUserDetails(value = "yangjinho3@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void get_order_list_by_admin_with_period_and_email_fail_test() throws Exception {
+        // Given
+        String page = "0";
+        String size = "4";
+
+        // When
+        ResultActions resultActions = mockMvc.perform(
+                get("/s/admin/orders")
+                        .param("email","yuhyunju1@nate.com")
+                        .param("period","oneWeek"));
+
+        // Then
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 response : " + responseBody);
+
+        resultActions.andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.msg").value("forbidden"))
+                .andExpect(jsonPath("$.status").value(403));
         resultActions.andDo(document.document(requestParameters(parameterWithName("email").description("이메일"), parameterWithName("period").description("기간"))));
         resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);

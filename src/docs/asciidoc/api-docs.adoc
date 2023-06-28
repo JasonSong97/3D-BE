@@ -123,6 +123,18 @@ include::{snippets}/{admin}/get_asset_list_by_admin_with_category_test/curl-requ
 include::{snippets}/{admin}/get_asset_list_by_admin_with_category_test/request-headers.adoc[]
 include::{snippets}/{admin}/get_asset_list_by_admin_with_category_test/request-parameters.adoc[]
 
+=== 관리자 에셋 조회 (카테고리 - 권한 체크 실패)
+===== Request Example
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_fail_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_fail_test/request-headers.adoc[]
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_fail_test/request-parameters.adoc[]
+
 === 관리자 에셋 조회 (카테고리&서브카테고리 - 성공)
 ===== Request Example
 include::{snippets}/{admin}/get_asset_list_by_admin_with_category_and_sub_category_test/http-request.adoc[]
@@ -134,6 +146,18 @@ include::{snippets}/{admin}/get_asset_list_by_admin_with_category_and_sub_catego
 include::{snippets}/{admin}/get_asset_list_by_admin_with_category_and_sub_category_test/curl-request.adoc[]
 include::{snippets}/{admin}/get_asset_list_by_admin_with_category_and_sub_category_test/request-parameters.adoc[]
 include::{snippets}/{admin}/get_asset_list_by_admin_with_category_and_sub_category_test/request-headers.adoc[]
+
+=== 관리자 에셋 조회 (카테고리&서브카테고리 - 권한 체크 실패)
+===== Request Example
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_and_sub_category_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_and_sub_category_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_and_sub_category_fail_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_and_sub_category_fail_test/request-parameters.adoc[]
+include::{snippets}/{admin}/get_asset_list_by_admin_with_category_and_sub_category_fail_test/request-headers.adoc[]
 
 === 관리자 에셋 조회 (상품명 - 성공)
 ===== Request Example
@@ -147,6 +171,18 @@ include::{snippets}/{admin}/get_asset_list_by_admin_with_asset_name_test/curl-re
 include::{snippets}/{admin}/get_asset_list_by_admin_with_asset_name_test/request-headers.adoc[]
 include::{snippets}/{admin}/get_asset_list_by_admin_with_asset_name_test/request-parameters.adoc[]
 
+=== 관리자 에셋 조회 (상품명 - 권한 체크 실패)
+===== Request Example
+include::{snippets}/{admin}/get_asset_list_by_admin_with_asset_name_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_asset_list_by_admin_with_asset_name_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_asset_list_by_admin_with_asset_name_fail_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_asset_list_by_admin_with_asset_name_fail_test/request-headers.adoc[]
+include::{snippets}/{admin}/get_asset_list_by_admin_with_asset_name_fail_test/request-parameters.adoc[]
+
 === 관리자 에셋 조회 (status=false - 성공)
 ===== Request Example
 include::{snippets}/{admin}/get_asset_list_by_admin_with_status_test/http-request.adoc[]
@@ -158,6 +194,18 @@ include::{snippets}/{admin}/get_asset_list_by_admin_with_status_test/http-respon
 include::{snippets}/{admin}/get_asset_list_by_admin_with_status_test/curl-request.adoc[]
 include::{snippets}/{admin}/get_asset_list_by_admin_with_status_test/request-parameters.adoc[]
 include::{snippets}/{admin}/get_asset_list_by_admin_with_status_test/request-headers.adoc[]
+
+=== 관리자 에셋 조회 (status=false - 권한 체크 실패)
+===== Request Example
+include::{snippets}/{admin}/get_asset_list_by_admin_with_status_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_asset_list_by_admin_with_status_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_asset_list_by_admin_with_status_fail_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_asset_list_by_admin_with_status_fail_test/request-parameters.adoc[]
+include::{snippets}/{admin}/get_asset_list_by_admin_with_status_fail_test/request-headers.adoc[]
 
 === 관리자 주문내역 조회 (기간 & 주문일 최신순 - 성공)
 ===== Request Example
@@ -171,6 +219,18 @@ include::{snippets}/{admin}/get_order_list_by_admin_with_period_test/curl-reques
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_test/request-parameters.adoc[]
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_test/request-headers.adoc[]
 
+=== 관리자 주문내역 조회 (기간 & 주문일 최신순 - 권한 체크 실패)
+===== Request Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_fail_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_fail_test/request-parameters.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_fail_test/request-headers.adoc[]
+
 === 관리자 주문내역 조회 (기간 & 주문일 오래된순 - 성공)
 ===== Request Example
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_sort_asc_test/http-request.adoc[]
@@ -182,6 +242,18 @@ include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_sort_asc_tes
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_sort_asc_test/curl-request.adoc[]
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_sort_asc_test/request-parameters.adoc[]
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_sort_asc_test/request-headers.adoc[]
+
+=== 관리자 주문내역 조회 (기간 & 주문일 오래된순 - 권한 체크 실패)
+===== Request Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_sort_asc_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_sort_asc_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_sort_asc_fail_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_sort_asc_fail_test/request-parameters.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_sort_asc_fail_test/request-headers.adoc[]
 
 === 관리자 주문내역 조회 (기간 & 주문번호 - 성공)
 ===== Request Example
@@ -195,6 +267,18 @@ include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_order_number
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_order_number_test/request-parameters.adoc[]
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_order_number_test/request-headers.adoc[]
 
+=== 관리자 주문내역 조회 (기간 & 주문번호 - 권한 체크 실패)
+===== Request Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_order_number_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_order_number_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_order_number_fail_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_order_number_fail_test/request-parameters.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_order_number_fail_test/request-headers.adoc[]
+
 === 관리자 주문내역 조회 (기간 & 상품번호 - 성공)
 ===== Request Example
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_number_test/http-request.adoc[]
@@ -206,6 +290,18 @@ include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_number
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_number_test/curl-request.adoc[]
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_number_test/request-parameters.adoc[]
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_number_test/request-headers.adoc[]
+
+=== 관리자 주문내역 조회 (기간 & 상품번호 - 권한 체크 실패)
+===== Request Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_number_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_number_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_number_fail_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_number_fail_test/request-parameters.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_number_fail_test/request-headers.adoc[]
 
 === 관리자 주문내역 조회 (기간 & 상품명 - 성공)
 ===== Request Example
@@ -219,6 +315,18 @@ include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_name_t
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_name_test/request-parameters.adoc[]
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_name_test/request-headers.adoc[]
 
+=== 관리자 주문내역 조회 (기간 & 상품명 - 권한 체크 실패)
+===== Request Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_name_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_name_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_name_fail_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_name_fail_test/request-parameters.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_asset_name_fail_test/request-headers.adoc[]
+
 === 관리자 주문내역 조회 (기간 & 이메일 - 성공)
 ===== Request Example
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_email_test/http-request.adoc[]
@@ -230,6 +338,18 @@ include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_email_test/h
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_email_test/curl-request.adoc[]
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_email_test/request-parameters.adoc[]
 include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_email_test/request-headers.adoc[]
+
+=== 관리자 주문내역 조회 (기간 & 이메일 - 권한 체크 실패)
+===== Request Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_email_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_email_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_email_fail_test/curl-request.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_email_fail_test/request-parameters.adoc[]
+include::{snippets}/{admin}/get_order_list_by_admin_with_period_and_email_fail_test/request-headers.adoc[]
 
 === 관리자 에셋 수정 (성공)
 ===== Request Example
@@ -713,6 +833,18 @@ include::{snippets}/{review}/get_reviews_test/curl-request.adoc[]
 [caption=]
 include::{snippets}/{review}/get_reviews_test/path-parameters.adoc[]
 
+=== 리뷰보기 (비로그인유저 - 잘못된 요청 에셋 id 실패)
+===== Request Example
+include::{snippets}/{review}/get_reviews_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{review}/get_reviews_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{review}/get_reviews_fail_test/curl-request.adoc[]
+[caption=]
+include::{snippets}/{review}/get_reviews_fail_test/path-parameters.adoc[]
+
 === 리뷰보기 (로그인유저 - 성공)
 ===== Request Example
 include::{snippets}/{review}/get_reviews_with_user_test/http-request.adoc[]
@@ -725,6 +857,19 @@ include::{snippets}/{review}/get_reviews_with_user_test/curl-request.adoc[]
 include::{snippets}/{review}/get_reviews_with_user_test/request-headers.adoc[]
 [caption=]
 include::{snippets}/{review}/get_reviews_with_user_test/path-parameters.adoc[]
+
+=== 리뷰보기 (로그인유저 - 잘못된 요청 에셋 id 실패)
+===== Request Example
+include::{snippets}/{review}/get_reviews_with_user_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{review}/get_reviews_with_user_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{review}/get_reviews_with_user_fail_test/curl-request.adoc[]
+include::{snippets}/{review}/get_reviews_with_user_fail_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{review}/get_reviews_with_user_fail_test/path-parameters.adoc[]
 
 === 리뷰작성 (성공)
 ===== Request Example
@@ -778,6 +923,19 @@ include::{snippets}/{review}/update_review_test/request-headers.adoc[]
 [caption=]
 include::{snippets}/{review}/update_review_test/path-parameters.adoc[]
 
+=== 리뷰수정 (로그인유저 - 잘못된 요청 리뷰 id 실패)
+===== Request Example
+include::{snippets}/{review}/update_review_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{review}/update_review_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{review}/update_review_fail_test/curl-request.adoc[]
+include::{snippets}/{review}/update_review_fail_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{review}/update_review_fail_test/path-parameters.adoc[]
+
 === 리뷰삭제 (성공)
 ===== Request Example
 include::{snippets}/{review}/delete_review_test/http-request.adoc[]
@@ -790,6 +948,19 @@ include::{snippets}/{review}/delete_review_test/curl-request.adoc[]
 include::{snippets}/{review}/delete_review_test/request-headers.adoc[]
 [caption=]
 include::{snippets}/{review}/delete_review_test/path-parameters.adoc[]
+
+=== 리뷰삭제 (로그인유저 - 잘못된 요청 리뷰 id 실패)
+===== Request Example
+include::{snippets}/{review}/delete_review_fail_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{review}/delete_review_fail_test/http-response.adoc[]
+
+===== Curl
+include::{snippets}/{review}/delete_review_fail_test/curl-request.adoc[]
+include::{snippets}/{review}/delete_review_fail_test/request-headers.adoc[]
+[caption=]
+include::{snippets}/{review}/delete_review_fail_test/path-parameters.adoc[]
 
 
 
