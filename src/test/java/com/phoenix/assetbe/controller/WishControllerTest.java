@@ -14,9 +14,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.security.test.context.support.TestExecutionEvent;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
@@ -24,6 +26,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -31,6 +34,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -40,6 +47,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @Sql("classpath:db/teardown.sql")
 @ExtendWith(SpringExtension.class)
+@AutoConfigureRestDocs(uriScheme = "http", uriHost = "localhost", uriPort = 8080)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @Transactional
@@ -107,6 +115,8 @@ public class WishControllerTest extends MyRestDoc {
 
         List<WishList> wishItems = wishListRepository.findAllByUser(userId);
         assertEquals(10, wishItems.size());
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -134,6 +144,8 @@ public class WishControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -163,6 +175,8 @@ public class WishControllerTest extends MyRestDoc {
 
         List<WishList> wishItems = wishListRepository.findAllByUser(userId);
         assertEquals(7, wishItems.size());
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -190,6 +204,8 @@ public class WishControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -200,7 +216,7 @@ public class WishControllerTest extends MyRestDoc {
         Long id = 1L;
 
         // When
-        ResultActions resultActions = mockMvc.perform(get("/s/user/{id}/wishlist", id));
+        ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders.get("/s/user/{id}/wishlist", id));
 
         // Then
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
@@ -208,6 +224,9 @@ public class WishControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("유저 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -218,7 +237,7 @@ public class WishControllerTest extends MyRestDoc {
         Long id = 3L;
 
         // When
-        ResultActions resultActions = mockMvc.perform(get("/s/user/{id}/wishlist", id));
+        ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders.get("/s/user/{id}/wishlist", id));
 
         // Then
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
@@ -227,6 +246,9 @@ public class WishControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("유저 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -237,7 +259,7 @@ public class WishControllerTest extends MyRestDoc {
         Long id = 2L;
 
         // When
-        ResultActions resultActions = mockMvc.perform(get("/s/user/{id}/wishlist", id));
+        ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders.get("/s/user/{id}/wishlist", id));
 
         // Then
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
@@ -246,5 +268,8 @@ public class WishControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.status").value(403))
                 .andExpect(jsonPath("$.data").value("권한이 없습니다. "));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("유저 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

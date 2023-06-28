@@ -10,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
@@ -18,6 +19,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -28,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("카테고리 컨트롤러 TEST")
 @ActiveProfiles("test")
 @Sql("classpath:db/teardown.sql")
+@AutoConfigureRestDocs(uriScheme = "http", uriHost = "localhost", uriPort = 8080)
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
@@ -68,5 +71,6 @@ public class CategoryControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.categoryList[0].categoryName").value("cute"))
                 .andExpect(jsonPath("$.data.categoryList[0].categoryCount").value(6));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

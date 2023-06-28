@@ -13,6 +13,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -24,6 +25,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -33,12 +35,17 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @DisplayName("리뷰 컨트롤러 TEST")
 @ActiveProfiles("test")
 @Sql("classpath:db/teardown.sql")
+@AutoConfigureRestDocs(uriScheme = "http", uriHost = "localhost", uriPort = 8080)
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
@@ -111,6 +118,8 @@ public class ReviewControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.data.hasAsset").value(false))
                 .andExpect(jsonPath("$.data.hasReview").value(false))
                 .andExpect(jsonPath("$.data.hasWishlist").value(false));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("에셋 id"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("리뷰보기 로그인유저 성공")
@@ -131,6 +140,51 @@ public class ReviewControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.msg").value("성공"))
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.data.hasReview").value(true));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("에셋 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @DisplayName("리뷰보기 비로그인유저 실패 - 잘못된 요청 에셋id")
+    @Test
+    public void get_reviews_fail_test() throws Exception {
+        // Given
+        Long id = 100L; // 에셋 id
+
+        // When
+        ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders
+                .get("/assets/{id}/reviews",id));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // Then
+        resultActions.andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.msg").value("badRequest"))
+                .andExpect(jsonPath("$.status").value(400));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("에셋 id"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @DisplayName("리뷰보기 로그인유저 실패 - 잘못된 요청 에셋id")
+    @WithUserDetails(value = "yangjinho3@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void get_reviews_with_user_fail_test() throws Exception {
+        // Given
+        Long id = 100L; // 에셋 id
+
+        // When
+        ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders
+                .get("/assets/{id}/reviews",id));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // Then
+        resultActions.andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.msg").value("badRequest"))
+                .andExpect(jsonPath("$.status").value(400));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("에셋 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("리뷰작성 성공")
@@ -168,13 +222,15 @@ public class ReviewControllerTest extends MyRestDoc {
         assertEquals(2L, assetPS.getReviewCount()); // 작성 후 ReviewCount는 증가한다.
         System.out.println("ReviewCount: "+assetPS.getReviewCount());
         System.out.println("AssetRating: "+assetPS.getRating());
-
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("에셋 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("리뷰작성 실패 : 에셋 구매 안함")
     @WithUserDetails(value = "songjaegeun2@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
-    public void add_review_fail_hasAsset_false_test() throws Exception {
+    public void add_review_fail_has_asset_false_test() throws Exception {
         // Given
         Long id = 31L; // 에셋 id
         Long userId = 2L;
@@ -194,12 +250,15 @@ public class ReviewControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value("403"))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("이 에셋을 구매하지 않았습니다. "));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("에셋 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("리뷰작성 실패 : 이전에 리뷰 작성함")
     @WithUserDetails(value = "yangjinho3@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
-    public void add_review_fail_hasReview_true_test() throws Exception {
+    public void add_review_fail_has_review_true_test() throws Exception {
         // Given
         Long id = 31L; // 에셋 id
         Long userId = 3L;
@@ -219,6 +278,9 @@ public class ReviewControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.status").value("403"))
                 .andExpect(jsonPath("$.msg").value("forbidden"))
                 .andExpect(jsonPath("$.data").value("이미 이 에셋의 리뷰를 작성하셨습니다. "));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("id").description("에셋 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("리뷰수정 성공")
@@ -234,7 +296,7 @@ public class ReviewControllerTest extends MyRestDoc {
 
         // When
         ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders
-                .post("/s/assets/{assetid}/reviews/{reviewId}", assetId, reviewId)
+                .post("/s/assets/{assetId}/reviews/{reviewId}", assetId, reviewId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(om.writeValueAsString(updateReviewInDTO)));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
@@ -255,7 +317,37 @@ public class ReviewControllerTest extends MyRestDoc {
         assertEquals(1L, assetPS.getReviewCount()); // 수정 후 ReviewCount는 변하지 않아야 한다.
         System.out.println("ReviewCount: "+assetPS.getReviewCount());
         System.out.println("Asset Rating: "+assetPS.getRating());
+        resultActions.andDo(document.document(pathParameters(parameterWithName("assetId").description("에셋 id"), parameterWithName("reviewId").description("리뷰 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
 
+    @DisplayName("리뷰수정 실패 - 잘못된 요청 리뷰id")
+    @WithUserDetails(value = "yangjinho3@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void update_review_fail_test() throws Exception {
+        // Given
+        Long assetId = 31L; // 에셋 id
+        Long reviewId = 15L;
+        Long userId = 3L;
+        ReviewRequest.ReviewInDTO updateReviewInDTO =
+                new ReviewRequest.ReviewInDTO(userId, 3D, "테스트입니다.");
+
+        // When
+        ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders
+                .post("/s/assets/{assetId}/reviews/{reviewId}", assetId, reviewId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(updateReviewInDTO)));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // Then
+        resultActions.andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.msg").value("badRequest"))
+                .andExpect(jsonPath("$.status").value(400));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("assetId").description("에셋 id"), parameterWithName("reviewId").description("리뷰 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @DisplayName("리뷰삭제 성공")
@@ -289,5 +381,36 @@ public class ReviewControllerTest extends MyRestDoc {
         assertEquals(0D, assetPS.getRating());
         System.out.println("ReviewCount: "+assetPS.getReviewCount());
         System.out.println("Asset Rating: "+assetPS.getRating());
+        resultActions.andDo(document.document(pathParameters(parameterWithName("assetId").description("에셋 id"), parameterWithName("reviewId").description("리뷰 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @DisplayName("리뷰삭제 - 실패 - 잘못된 요청 - 리뷰id")
+    @WithUserDetails(value = "yangjinho3@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void delete_review_fail_test() throws Exception {
+        // Given
+        Long assetId = 31L; // 에셋 id
+        Long reviewId = 10L;
+        Long userId = 3L;
+        ReviewRequest.DeleteReviewInDTO deleteReviewInDTO =
+                new ReviewRequest.DeleteReviewInDTO(userId);
+
+        // When
+        ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders
+                .post("/s/assets/{assetId}/reviews/{reviewId}/delete", assetId, reviewId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(deleteReviewInDTO)));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // Then
+        resultActions.andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.msg").value("badRequest"))
+                .andExpect(jsonPath("$.status").value(400));
+        resultActions.andDo(document.document(pathParameters(parameterWithName("assetId").description("에셋 id"), parameterWithName("reviewId").description("리뷰 id"))));
+        resultActions.andDo(document.document(requestHeaders(headerWithName("Authorization").optional().description("인증헤더 Bearer token 필수"))));
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }
