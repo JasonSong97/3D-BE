@@ -16,9 +16,6 @@
 </p>
 <h2 align=center>3D 자산 거래를 위한 3D Asset 거래소 플랫폼, 3DAsset</h2>
 
-## UI
-
-
 ## API Docs
 
 ### 💎 [REST - API 명세서](https://3dasset-ecommerce.github.io/3D-BE/src/main/resources/static/docs/api-docs)
