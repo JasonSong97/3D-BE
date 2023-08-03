@@ -66,7 +66,7 @@
 
 ## 시스템 구성도
 
-![system-architecture](https://github.com/3DAsset-eCommerce/3D-BE/assets/107292103/3f808007-d75d-4664-ba94-b0c7cd4ea8fb)
+![system-architecture](https://github.com/3DAsset-eCommerce/3D-BE/assets/107292103/368a6d36-18ea-413e-b6ab-7d11a5f98485)
 
 <br/>
 
@@ -134,7 +134,7 @@
 👤 **송재근(팀원)**
 
 - Role
-  - Sentry.io 세팅, RestDoc 문서 생성, 마이페이지, 관리자 페이지
+  - Sentry.io 세팅, RestDoc 문서 생성, 마이페이지, 관리자 페이지, 리드미 페이지
   - API(13 개)
     - 비밀번호 확인, 나의 회원정보 조회, 나의 회원정보 수정, 회원 탈퇴, 내 에셋, 내 에셋 검색, 에셋 파일 다운로드, 에셋 등록, 에셋 수정, 에셋 비활성화, 에셋 활성화, 서브카테고리 조회, 카테고리 조회
 - Github: [@Jason_song97](https://github.com/JasonSong97)
